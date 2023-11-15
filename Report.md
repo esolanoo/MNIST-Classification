@@ -82,8 +82,8 @@ It comprises 28x28 pixel grayscale images of handwritten digits (0 to 9). Each i
 <img src="https://raw.githubusercontent.com/esolanoo/MNIST-Classification/main/RandomDigits.jpg"
         alt="Random Digits"
         style="display: block; margin: 0 auto"
-        width=70%
-        length=70% />
+        width=80%
+        length=80% />
 <em>Random Digits</em>
 </center>
 
