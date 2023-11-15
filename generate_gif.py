@@ -7,15 +7,15 @@ import matplotlib.animation as animation
 
 X_tsne = pd.read_csv('tsne_3.csv', index_col=False).iloc[:, 1:]
 
-x = X_tsne[:5000]['dim1'].to_numpy()
-y = X_tsne[:5000]['dim2'].to_numpy()
-z = X_tsne[:5000]['dim3'].to_numpy()
+x = X_tsne[:7000]['dim1'].to_numpy()
+y = X_tsne[:7000]['dim2'].to_numpy()
+z = X_tsne[:7000]['dim3'].to_numpy()
 
 fig = plt.figure(figsize=(15, 15))
 ax = Axes3D(fig, auto_add_to_figure=False)
 fig.add_axes(ax)
 
-classes = X_tsne[:5000]['label']
+classes = X_tsne[:7000]['label']
 
 for class_name in set(classes):
     indices = np.where(classes == class_name)
