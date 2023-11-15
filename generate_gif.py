@@ -43,5 +43,5 @@ anim = animation.FuncAnimation(fig, animate, init_func=init,
                                frames=360, interval=20, blit=True, save_count=1500)
 
 f = r"c://Users/Eduardo/Videos/animation.gif" 
-writergif = animation.PillowWriter(fps=40) 
+writergif = animation.PillowWriter(fps=38) 
 anim.save(f, writer=writergif)
