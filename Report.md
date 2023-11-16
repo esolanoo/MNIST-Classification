@@ -13,38 +13,32 @@
 <br>
 <br>
 <br>
-<br>
+<br> </br>
 
-## MNIST Classification
-## Machine Learning Regression Algorithm Selection
-
-
-### *Eduardo Solano Jaime*
-
-### *0213663*
-
-### *Especialidad en Ciencia de Datos*
-
-### *Universidad Panamericana campus Guadalajara*
+<h1 style="text-align: center;">MNIST Classification</h1>
+<h2 style="text-align: center;">Machine Learning Regression Algorithm Selection</h2>
+<h3 style="text-align: center;">Eduardo Solano Jaime</h3>
+<h3 style="text-align: center;">0213663</h3>
+<h3 style="text-align: center;">Especialidad en Ciencia de Datos</h3>
+<h3 style="text-align: center;">Universidad Panamericana Campus Guadalajara</h3>
 
 </center>
 
 <div style="page-break-after: always;"></div>
 
-<center>
+<div align="center">
 
 ## Abstract
 
-This report presents a comprehensive study on the selection of an optimal machine learning classification algorithm for the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset. The goal is to develop a robust model that accurately classifies handwritten digits. The process begins with data preparation and processing, followed by feature engineering to extract meaningful attributes from the images. Various machine learning models are then built and rigorously tested on these features. The performance of each model is evaluated using appropriate metrics. Finally, cross-validation techniques are employed to ensure the model’s generalizability and to determine the most effective classification method. The findings of this report contribute to the ongoing efforts in the field of image classification and provide valuable insights for future research.
+This report presents a comprehensive study on the selection of an optimal machine learning classification algorithm for the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset. The goal is to develop a robust model that accurately classifies handwritten digits. The process begins with data preparation and processing, followed by feature engineering to extract meaningful attributes from the images. Various machine learning models are then built and rigorously tested on these features. The performance of each model is evaluated using appropriate metrics. Finally, cross-validation techniques are employed to ensure the model’s generalizability and to determine the most effective classification method. The findings of this report contribute to the ongoing efforts in the field of image classification and provide valuable insights for future research. The full code is available in my [github repository](https://github.com/esolanoo/MNIST-Classification).
 
-The full code is available in my [github repository](https://github.com/esolanoo/MNIST-Classification).
+</div>
 
-</center>
-<div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"> </div>
 
 ## Methodology
 
-1. **Goal Setting**: Define the objective of your project. In this case, it is to classify handwritten digits from the MNIST dataset.}
+1. **Goal Setting**: Define the objective of your project. In this case, it is to classify handwritten digits from the MNIST dataset.
 2. **Data Preparation**: Load the MNIST dataset and split it into training and testing sets. The training set is used to train the model, and the testing set is used to evaluate its performance.
 3. **Data Processing**: This step can help improve the performance of many machine learning algorithms.
 4. **Feature Engineering**: In the context of the MNIST dataset, each pixel in the image can be considered a feature.
@@ -65,8 +59,7 @@ The dataset is extracted from [OpenML's mnist_784](https://www.openml.org/search
 ```
 <class 'pandas.core.frame.DataFrame'> 
 RangeIndex: 70000 entries, 0 to 69999 
-Columns: 784 entries, pixel1 to pixel784 dtypes: int64(784) 
-memory usage: 418.7 MB
+Columns: 784 entries, pixel1 to pixel784 dtypes: int64(784) memory usage: 418.7 MB
 ```
 
 Noteworthy to mention is the fact that the dataset is perfectly clean in terms of null and nan values, both in the features and in the labels.
@@ -82,15 +75,14 @@ It comprises 28x28 pixel grayscale images of handwritten digits (0 to 9). Each i
 <img src="https://raw.githubusercontent.com/esolanoo/MNIST-Classification/main/RandomDigits.jpg"
         alt="Random Digits"
         style="display: block; margin: 0 auto"
-        width=80%
-        length=80% />
+        width=60%
+        length=60% />
 <em>Random Digits</em>
 </center>
 
-Upon visualizing the data, it becomes apparent that most of the pixels in the handwritten digits hold minimal relevance to the assigned labels. 
+Upon visualizing the data, it becomes apparent that most of the pixels in the handwritten digits hold minimal relevance to the assigned labels.
 
-> While the MNIST data points are _embedded_ in 784-dimensional space, they live in a very small subspace. 
-> -- <cite>Christopher Olah</cite>
+While the MNIST data points are _embedded_ in 784-dimensional space, they live in a very small subspace. <cite>Christopher Olah</cite>
 
 This pushed the report into a recently introduced (and not discussed in class) feature descomosition. Based on the assumption that the MNIST dataset *occupies* a much smaller dataspace, and appealing to the [Manifold hypothesis](https://en.wikipedia.org/wiki/Manifold_hypothesis), the incoming model selection uses PCA following by tSNE as feature enineering process.
 
@@ -109,14 +101,20 @@ The utilization of PCA and t-SNE is driven by their effectiveness in simplifying
 By combining these techniques, a clearer understanding of the dataset is achieved. PCA streamlines and identifies the most important elements, while t-SNE visually represents how these elements relate, particularly focusing on similar items. Together, they facilitate a more comprehensive comprehension of the data, simplifying the complex information and making it more accessible for analysis and interpretation.
 
 ```python
-X_pca = PCA(n_components=50, random_state=5338).fit_transform(X_fit)
-X_tsne = TSNE(n_components=3, n_jobs=-1, random_state=5338).fit_transform(X_pca)
+pca= PCA(n_components=50, random_state=5338)
+X_pca= pca.fit_transform(X_fit)
+tsne = TSNE(n_components=3, n_jobs=-1, random_state=5338)
+X_tsne = tsne.fit_transform(X_pca)
 X_tsne['label'] = y
 ```
 
 After anextensive computatin time and effort, the dataset's dimensions were reduced from 784 to only 3 dimensions, without compromising valuable information.
 
-<center>
+<div style="page-break-after: always;"> </div>
+
+<div style="margin-left: auto;
+            margin-right: auto;
+            width: 30%">
 
 |    |      dim1 |      dim2 |      dim3 |   label |
 |---:|----------:|----------:|----------:|--------:|
@@ -126,21 +124,10 @@ After anextensive computatin time and effort, the dataset's dimensions were redu
 |  3 |  19.417   |  -7.35925 | -19.0398  |       1 |
 |  4 |  -4.46703 | -15.393   |  -1.30892 |       9 |
 
-</center>
+</div>
 
-For an easier visualization, the data can be plot according to its new embedded dimenions. (If gif not diplayed, follow [this link](https://github.com/esolanoo/MNIST-Classification/blob/main/animation.gif))
-
-
-<center>
-<img src="https://github.com/esolanoo/MNIST-Classification/blob/main/animation.gif?raw=true "SCATTERPLOT""
-        alt="Scatterplot gif"
-        style="display: block; margin: 0 auto"
-        width=80%
-        length=80% />
-<em>Embedded scatter plot animation</em>
-</center>
-
-Or in a (not-so-visual, not animated) image representation:
+For an easier visualization, the data can be plot according to its new embedded dimenions. A comprenhensive animatyion of the distributed observations was created to display the excellent results provided by the data transformation. Said animation can be seen in [this link](https://github.com/esolanoo/MNIST-Classification/blob/main/animation.gif).
+Or in a (not-so-visually pleasing, not animated) image representation:
 
 <center>
 <img src="https://github.com/esolanoo/MNIST-Classification/blob/main/pca_tsne_scatterplot.png?raw=true"
@@ -153,6 +140,8 @@ Or in a (not-so-visual, not animated) image representation:
 
 Using PCA and t-SNE for feature selection and transformation might lead to a downside: the potential loss of the original meaning or interpretability of the features. As these methods focus on reducing dimensions and emphasizing relationships in the data, the direct connection to the original features might be obscured.
 
+<div style="page-break-after: always;"></div>
+
 ## Model Building
 
 Some dirty-models are built in order to identify out top champions for classifying the MNIST Dataset. And for that, the data must me split for training.
@@ -161,6 +150,7 @@ from sklearn.model_selection import train_test_split
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X_tsne, y, test_size=1/3, random_state=5338)
 ```
+
 ### One-vs-Rest
 
 One such strategy is the **One-vs-Rest** (OvR) or **One-vs-All** (OvA) approach. In this method, instead of directly classifying into multiple classes, logistic regression is applied iteratively, creating a separate model for each class while treating it as a binary classification problem (one class versus the rest). Then, during prediction, the model that gives the highest probability is chosen as the predicted class.
@@ -211,8 +201,8 @@ A score of **1.0** is achieved against the *test* set with `xgb.XGBClassifier(ob
 <img src="https://raw.githubusercontent.com/esolanoo/MNIST-Classification/main/DimensionsKDE.jpg"
         alt="Dim KDE"
         style="display: block; margin: 0 auto"
-        width=80%
-        length=80% />
+        width=65%
+        length=65% />
 <em>Embedded dimensions KDE</em>
 </center>
 
@@ -220,9 +210,7 @@ A score of **1.0** is achieved against the *test* set with `GaussianNB()`, meani
 
 Thanks to effective data preprocessing and precise dimensionality reductions, all candidate models perform exceptionally well on the training data. Particularly noteworthy are the Gaussian Naive Bayes, the Multi-layer Perceptron classifier, and the XGBoost models. Each demonstrates high accuracy and proficiency in handling the data after preprocessing and dimensionality reduction. Consequently, any of these models could be considered as a strong candidate for the optimal classification model choice.
 
-A score of **1.0** is achieved against the *test* set with this method, meaning **100%** of the test samples were correctly classified.
-
-  ## Fine-Tune the models
+## Fine-Tune the models
 
 In this case, **Gaussian Naive Bayes** stands out for the relation between effectiveness and runtime while training. For the fine tune of the selected models, the `GridSearchCV` method is used.
 
@@ -232,7 +220,7 @@ The optimal model for `GaussianNB()` contains the default parameter of `var_smoo
 
 ### Test score
 
-By assessing the model's performance on new, unseen data, a score of **1.0** is obrained.
+By assessing the model's performance on new, unseen data, a score of **1.0** is obtained.
 
 ### Repeteaded Train & Test Split
 
@@ -278,7 +266,7 @@ It is a powerful tool for evaluating the performance of a classification model, 
 <em>Confussion Matrix</em>
 </center>
 
-A rare case of a perfect confussion matrix is shown above, displaying how there are no mis-classified samples.
+A rare case of a perfect confussion matrix is shown above, displaying how there are no misclassified samples.
 
 ### Precission, Recall, and F1-Score
 
@@ -292,10 +280,12 @@ By using `sklearn`'s `classification_report` we can observe the next metrics:
 
 In a multilabel classification context, these metrics are calculated for each label and then averaged - either by taking the mean average (‘macro’) or by weighting each label’s score by the number of instances it has (‘weighted’).
 
-<center>
+<div style="margin-left: auto;
+            margin-right: auto;
+            width: 30%">
 
 |              |   precision |   recall |   f1-score |   support |
-|:-------------|------------:|---------:|-----------:|----------:|
+|-------------:|:-----------:|:--------:|:----------:|:---------:|
 | 0            |           1 |        1 |          1 |      6903 |
 | 1            |           1 |        1 |          1 |      7877 |
 | 2            |           1 |        1 |          1 |      6990 |
@@ -310,7 +300,7 @@ In a multilabel classification context, these metrics are calculated for each la
 | macro avg    |           1 |        1 |          1 |     70000 |
 | weighted avg |           1 |        1 |          1 |     70000 |
 
-</center>
+</div>
 
 ### ROC AUC Curve
 
